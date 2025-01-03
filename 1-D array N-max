@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<limits.h>
+//The below function checks for the highest array element
+int n_highest(int *a,int size) {
+    int i,j,highest=*a;
+    for(i=0;i<size;i++) {
+        for(j=i+1;j<size;j++) {
+            if (*(a+j)>highest) {
+                highest=*(a+j);
+            }
+        }
+    }
+    return highest;
+}
+//The below function clears the recent highest
+void high_clear(int *a,int size,int highest) {
+    for (int i=0;i<size;i++) {
+        if(a[i]==highest) {
+            a[i]=INT_MIN;
+        }
+    }
+}//The main function
+int main(void) {
+    int highest,i=0,j=0,size;
+    char ch;
+    printf("\nEnter the size of the array:");
+    scanf("%d",&size);
+    int a[size];
+    for (i=0;i<size;i++) {
+        scanf("%d",a+i);
+    }
+    choice:
+    highest=n_highest(a,size);
+    printf("\nThe %d-th highest value is:%d",++j,highest);
+    if (j==size) {
+        printf("\nSize Limit reached");
+        return 0;
+    }
+    printf("\nDo you want to find the next highest?[Y/N]");getchar();
+    scanf("%c",&ch);
+    if (ch=='Y' && j<size){
+        high_clear(a,size,highest);
+        goto choice;
+    }
+    else{
+        printf("\nExiting");
+        return 0;
+    }
+
+}
